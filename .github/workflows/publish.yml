@@ -1,0 +1,36 @@
+name: Publish to PyPI (Trusted Publishing)
+
+on:
+  push:
+    branches:
+      - master
+
+
+
+jobs:
+  build-and-publish:
+    environemnt: pypi
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Set up Python (uv)
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish to PyPI (Trusted Publishing)
+        run: uv publish
