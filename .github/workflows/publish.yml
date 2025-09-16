@@ -33,4 +33,4 @@ jobs:
         run: uv build --sdist
 
       - name: Publish to PyPI (Trusted Publishing)
-        run: uv publish --sdist
+        run: uv publish
