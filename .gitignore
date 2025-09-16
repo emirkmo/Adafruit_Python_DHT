@@ -4,4 +4,6 @@ build
 setuptools-*
 *.so
 dist
+.venv
+
 
