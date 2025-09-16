@@ -78,4 +78,5 @@ support Adafruit and open-source hardware by purchasing products from Adafruit!
 
 Written by Tony DiCola for Adafruit Industries.
 
-MIT license, all text above must be included in any redistribution(?: The license doesn't mention this, so I left it in here.)
+MIT license, all text above must be included in any redistribution
+(?: The license doesn't mention this, but I left this part in here as well as links to AdaFruit)

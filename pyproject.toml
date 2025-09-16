@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dht-pi"
+version = "0.1.0"
+description = "DHT11, DHT22, and AM2302 temperature and humidity sensor reading library for Raspberry Pi"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Emir Karamehmetoglu", email = "ek2660@gmail.com" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Operating System :: POSIX :: Linux",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development",
+    "Topic :: System :: Hardware"
+]
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://github.com/emirkmo/dht-pi"
+Repository = "https://github.com/emirkmo/dht-pi"
+Issues = "https://github.com/emirkmo/dht-pi/issues"
+
+[tool.setuptools]
+# Explicitly include the dht_pi package
+packages = ["dht_pi"]
