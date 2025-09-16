@@ -30,7 +30,7 @@ jobs:
         run: uv sync
 
       - name: Build package
-        run: uv build
+        run: uv build --sdist
 
       - name: Publish to PyPI (Trusted Publishing)
-        run: uv publish
+        run: uv publish --sdist
