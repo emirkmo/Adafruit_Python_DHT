@@ -1,104 +1,81 @@
-*DEPRECATED LIBRARY* Adafruit Python DHT Sensor Library
+# DHT_PI 
 =======================
 
-his library has been deprecated! We are leaving this up for historical and research purposes but archiving the repository.
+Simplified & Modernized fork of Adafruit's Deprecated Python DHT Sensor Library, limited to
+currently supported versions of Raspberry PI (Pi 2+, but create an issue if you want a Pi 1 port).
+Provides a simple, safe, and typed reading of temperature and humidity
+from [DHT11, DHT22, AND AM2302 sensors](https://www.adafruit.com/products/385) via GPIO pins.
 
-We are now only supporting the use of our CircuitPython libraries for use with Python.
+For modern support by AdaFruit, see their [CircuitPython libraries](https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup).
 
-Check out this guide for info on using DHT sensors with the CircuitPython library: https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/python-setup
+However, this simple library following modern python packaging was created because
+`CircuitPython` is a convoluted Kitchen sink that is difficult to use. 
+I wouldn't recommend it.
 
----------------------------------------
+This fork is not affliated with AdaFruit in anyway. All copyrights belong to them except
+for heavily modified or new code.
 
-Python library to read the DHT series of humidity and temperature sensors on a
-Raspberry Pi or Beaglebone Black.
+## Installation
 
-Designed specifically to work with the Adafruit DHT series sensors ---->
-https://www.adafruit.com/products/385
-
-Currently the library is tested with Python 2.6, 2.7, 3.3 and 3.4. It should
-work with Python greater than 3.4, too.
-
-Installing
-----------
-
-### Dependencies
-
-For all platforms (Raspberry Pi and Beaglebone Black) make sure your system is
-able to compile and download Python extensions with **pip**:
-
-On Raspbian or Beaglebone Black's Debian/Ubuntu image you can ensure your
-system is ready by running one or two of the following sets of commands:
-
-Python 2:
-
-````sh
-sudo apt-get update
-sudo apt-get install python-pip
-sudo python -m pip install --upgrade pip setuptools wheel
-````
-
-Python 3:
-
-````sh
-sudo apt-get update
-sudo apt-get install python3-pip
-sudo python3 -m pip install --upgrade pip setuptools wheel
-````
-
-### Install with pip
-
-Use `pip` to install from PyPI.
-
-Python 2:
+You can install from Pypi using your favorite package manager (such as `pip` or `uv`).
+I recommend using [uv]()
 
 ```sh
-sudo pip install Adafruit_DHT
+uv add dht_pi
+# pip install dht_pi
 ```
 
-Python 3:
+Designed for python 3.11+. Create an issue or PR if you want support/port ofr earlier 3.X versions.
+We don't even build for them.
 
-```sh
-sudo pip3 install Adafruit_DHT
+## Usage
+
+There is a safe class based endpoint and a little less safe functional endpoint.
+
+```Python
+from dht_pi import Sensor, DHT11 # or DHT22, AM2302 or #SensorType and do SensorType.DHT11
+
+GPIO_PIN = 12 # Or whichever GPIO PIN you used for the data link
+
+sensor = Sensor(sensor_type=DHT11, pin=GPIO_PIN) 
+reading = sensor.read_retry() 
+# Better to use `sensor.read_retry` instead of `sensor.read`, which gives `None` readings much more readily.
+print(reading.humidity, reading.temperature)
+
+# Equivalent, but easy to mix up order:
+humidity, temperature = sensor.read_retry()
+print(humidity, temperature)
 ```
 
-### Compile and install from the repository
+Functional endpoint
+```Python
+from dht_pi import SensorType, read_retry, read
 
-First download the library source code from the [GitHub releases
-page](https://github.com/adafruit/Adafruit_Python_DHT/releases), unzipping the
-archive, and execute:
+GPIO_PIN = 12 # Or whichever GPIO PIN you used for the data link
+reading = read_retry(sensor=SensorType.DHT22, pin=GPIO_PIN)
 
-Python 2:
-
-```sh
-cd Adafruit_Python_DHT
-sudo python setup.py install
+# Most dangerous:
+humidity, temperature = read(sensor=SensorType.DHT22.value, pin=GPIO_PIN)
 ```
 
-Python 3:
+## Running direetly on a Raspberry PI
 
-```sh
-cd Adafruit_Python_DHT
-sudo python3 setup.py install
-```
+Ensure that you pi can compile and download Python extensions (such as with `pip`).
+Modern Raspian ships with python 3.11 and `pip`.
+I would still recommend [uv](https://docs.astral.sh/uv/getting-started/installation/)
+(Technically you can even install `uv` via `pip`).
+Then simply run
 
-You may also git clone the repository if you want to test an unreleased
-version:
+Upcoming:
+Shell scripts.
 
-```sh
-git clone https://github.com/adafruit/Adafruit_Python_DHT.git
-```
+Note: Below is from original repo
 
-Usage
------
-
-See example of usage in the examples folder.
-
-Author
-------
+## Original Author
 
 Adafruit invests time and resources providing this open source code, please
 support Adafruit and open-source hardware by purchasing products from Adafruit!
 
 Written by Tony DiCola for Adafruit Industries.
 
-MIT license, all text above must be included in any redistribution
+MIT license, all text above must be included in any redistribution(?: The license doesn't mention this, so I left it in here.)
