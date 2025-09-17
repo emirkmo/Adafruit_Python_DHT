@@ -61,8 +61,6 @@ jobs:
           CIBW_BUILD_VERBOSITY: "1"
         with:
           output-dir: wheelhouse
-                output-dir: wheelhouse
-
 
       - name: Upload wheels artifact
         uses: actions/upload-artifact@v4
