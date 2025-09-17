@@ -42,16 +42,9 @@ jobs:
       - name: Build ARM wheels (cp311-cp314)
         uses: pypa/cibuildwheel@v3.1.4
         env:
-          # Target Raspberry Pi architectures (32-bit ARMv7 + 64-bit AArch64)
-          CIBW_ARCHS_LINUX: "aarch64 armv7"
+          # Don’t set CIBW_ARCHS_LINUX — it’s not needed for armv7l builds
+          # Use explicit manylinux tags instead
 
-          # Pin images per-arch:
-          # - 32-bit ARM uses the special manylinux_2_31 image (armv7l-only)
-          # - 64-bit ARM uses manylinux2014 aarch64
-          CIBW_MANYLINUX_ARMV7L_IMAGE: "manylinux_2_31"
-          CIBW_MANYLINUX_AARCH64_IMAGE: "manylinux2014"
-
-          # Build for CPython 3.11–3.14 on both arches
           CIBW_BUILD: |
             cp311-manylinux2014_aarch64
             cp312-manylinux2014_aarch64
@@ -62,13 +55,12 @@ jobs:
             cp313-manylinux_2_31_armv7l
             cp314-manylinux_2_31_armv7l
 
-          # No Alpine (musllinux) wheels for now
+          # Force the right images per arch
+          CIBW_MANYLINUX_AARCH64_IMAGE: manylinux2014
+          CIBW_MANYLINUX_ARMV7L_IMAGE: manylinux_2_31
+
           CIBW_SKIP: "*-musllinux_*"
-
-          # Skip running tests inside the build containers (optional)
           CIBW_TEST_SKIP: "*"
-
-          # Slightly more verbose logs
           CIBW_BUILD_VERBOSITY: "1"
         with:
           output-dir: wheelhouse
