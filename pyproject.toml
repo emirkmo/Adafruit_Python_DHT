@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dht-pi"
-version = "0.1.0"
+version = "0.1.1"
 description = "DHT11, DHT22, and AM2302 temperature and humidity sensor reading library for Raspberry Pi"
 readme = "README.md"
 license = { text = "MIT" }
