@@ -39,21 +39,18 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Build ARM wheels (cp311–cp314)
+      - name: Build ARM64 wheels (cp311–cp314)
         uses: pypa/cibuildwheel@v3.1.4
         env:
-          # Target Raspberry Pi OS 64-bit (aarch64) and 32-bit (armv7l)
-          CIBW_ARCHS_LINUX: "aarch64 armv7l"
-
-          # Correct images for these arches
+          # Build only for 64-bit Raspberry Pi OS (aarch64)
+          CIBW_ARCHS_LINUX: "aarch64"
           CIBW_MANYLINUX_AARCH64_IMAGE: "manylinux_2_17"
-          CIBW_MANYLINUX_ARMV7L_IMAGE: "manylinux_2_31"
 
-          # Build for CPython 3.11–3.14
+          # Explicit build IDs for Python 3.11–3.14
           CIBW_BUILD: |
-            cp311-manylinux_aarch64 cp311-manylinux_2_31_armv7l
-            cp312-manylinux_aarch64 cp312-manylinux_2_31_armv7l
-            cp313-manylinux_aarch64 cp313-manylinux_2_31_armv7l
+            cp311-manylinux_aarch64
+            cp312-manylinux_aarch64
+            cp313-manylinux_aarch64
 
           # Optional niceties
           CIBW_SKIP: "*-musllinux_*"
