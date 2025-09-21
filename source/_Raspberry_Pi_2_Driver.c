@@ -46,7 +46,7 @@ static PyMethodDef module_methods[] = {
 #if PY_MAJOR_VERSION > 2
 static struct PyModuleDef pi2_dht_module = {
     PyModuleDef_HEAD_INIT,
-    "Raspberry_Pi_2_Driver",   // name of module
+    "Raspberry_Pi_Driver",     // name of module (must match Python import)
     NULL,                      // module documentation, may be NULL
     -1,                        // size of per-interpreter state of the module, or -1 if the module keeps state in global variables.
     module_methods
@@ -54,9 +54,9 @@ static struct PyModuleDef pi2_dht_module = {
 #endif
 
 #if PY_MAJOR_VERSION > 2
-PyMODINIT_FUNC PyInit_Raspberry_Pi_2_Driver(void)
+PyMODINIT_FUNC PyInit_Raspberry_Pi_Driver(void)
 #else
-PyMODINIT_FUNC initRaspberry_Pi_2_Driver(void)
+PyMODINIT_FUNC initRaspberry_Pi_Driver(void)
 #endif
 {    
     #if PY_MAJOR_VERSION > 2
