@@ -22,10 +22,6 @@ def read(sensor: int, pin: int) -> Reading:
     # Get a reading from C driver code.
     result, humidity, temp = driver.read(sensor, pin)
 
-    # Technically unncessary
-    if result not in DHTResult: 
-        raise RuntimeError('Error calling DHT test driver read, UNKNOWN ERROR CODE: {0}'.format(result))
-
     match DHTResult(result):
         case DHTResult.DHT_SUCCESS:
             return Reading(humidity, temp)
